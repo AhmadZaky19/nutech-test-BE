@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx nodemon src/index",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run"
+    "build": "npm run-script"
   },
   "author": "",
   "license": "ISC",
