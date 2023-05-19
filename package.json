@@ -2,11 +2,11 @@
   "name": "nutech-test-be",
   "version": "1.0.0",
   "description": "",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "npx nodemon src/index",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run-script"
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
