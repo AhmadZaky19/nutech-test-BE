@@ -114,7 +114,7 @@ module.exports = {
         sellPrice,
         stock,
         image: req.file ? req.file.filename : null,
-        updatedAt: new Date(Date.now()),
+        // updatedAt: new Date(Date.now()),
       };
       Object.keys(setData).forEach((data) => {
         if (!setData[data]) {
