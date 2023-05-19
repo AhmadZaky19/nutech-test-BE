@@ -76,11 +76,11 @@ module.exports = {
   },
   postProduct: async (req, res) => {
     try {
-      const { name, buy_price, sell_price, stock } = req.body;
+      const { name, buyPrice, sellPrice, stock } = req.body;
       const setData = {
         name,
-        buy_price,
-        sell_price,
+        buyPrice,
+        sellPrice,
         stock,
         image: req.file ? req.file.filename : null,
       };
@@ -107,14 +107,14 @@ module.exports = {
           null
         );
       }
-      const { name, buy_price, sell_price, stock } = req.body;
+      const { name, buyPrice, sellPrice, stock } = req.body;
       const setData = {
         name,
-        buy_price,
-        sell_price,
+        buyPrice,
+        sellPrice,
         stock,
         image: req.file ? req.file.filename : null,
-        updated_at: new Date(Date.now()),
+        updatedAt: new Date(Date.now()),
       };
       Object.keys(setData).forEach((data) => {
         if (!setData[data]) {

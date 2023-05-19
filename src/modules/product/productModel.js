@@ -4,7 +4,7 @@ module.exports = {
   getAllProduct: (search, limit, offset) =>
     new Promise((resolve, reject) => {
       connection.query(
-        `SELECT * FROM products_list WHERE name LIKE ? LIMIT ? OFFSET ?`,
+        `SELECT * FROM product WHERE name LIKE ? LIMIT ? OFFSET ?`,
         [`%${search}%`, limit, offset],
         (error, result) => {
           if (!error) {
@@ -18,7 +18,7 @@ module.exports = {
   getProductById: (id) =>
     new Promise((resolve, reject) => {
       connection.query(
-        "SELECT * FROM products_list WHERE id = ?",
+        "SELECT * FROM product WHERE id = ?",
         id,
         (error, result) => {
           if (!error) {
@@ -32,7 +32,7 @@ module.exports = {
   getCountProduct: (search) =>
     new Promise((resolve, reject) => {
       connection.query(
-        `SELECT COUNT (*) AS total FROM products_list WHERE name LIKE ?`,
+        `SELECT COUNT (*) AS total FROM product WHERE name LIKE ?`,
         [`%${search}%`],
         (error, result) => {
           if (!error) {
@@ -45,26 +45,22 @@ module.exports = {
     }),
   postProduct: (data) =>
     new Promise((resolve, reject) => {
-      connection.query(
-        "INSERT INTO products_list SET ?",
-        data,
-        (error, result) => {
-          if (!error) {
-            const newResult = {
-              id: result.insertId,
-              ...data,
-            };
-            resolve(newResult);
-          } else {
-            reject(new Error(`SQL : ${error.sqlMessage}`));
-          }
+      connection.query("INSERT INTO product SET ?", data, (error, result) => {
+        if (!error) {
+          const newResult = {
+            id: result.insertId,
+            ...data,
+          };
+          resolve(newResult);
+        } else {
+          reject(new Error(`SQL : ${error.sqlMassage}`));
         }
-      );
+      });
     }),
   updateProduct: (data, id) =>
     new Promise((resolve, reject) => {
       connection.query(
-        "UPDATE products_list SET ? WHERE id = ?",
+        "UPDATE product SET ? WHERE id = ?",
         [data, id],
         (error) => {
           if (!error) {
@@ -81,16 +77,12 @@ module.exports = {
     }),
   deleteProduct: (id) =>
     new Promise((resolve, reject) => {
-      connection.query(
-        "DELETE FROM products_list WHERE id = ?",
-        id,
-        (error) => {
-          if (!error) {
-            resolve(id);
-          } else {
-            reject(new Error(`SQL : ${error.sqlMessage}`));
-          }
+      connection.query("DELETE FROM product WHERE id = ?", id, (error) => {
+        if (!error) {
+          resolve(id);
+        } else {
+          reject(new Error(`SQL : ${error.sqlMessage}`));
         }
-      );
+      });
     }),
 };
