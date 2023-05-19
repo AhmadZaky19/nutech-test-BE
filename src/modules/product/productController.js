@@ -7,7 +7,7 @@ module.exports = {
     try {
       let { search, page, limit } = request.query;
       page = Number(page) || 1;
-      limit = Number(limit) || 3;
+      limit = Number(limit) || 4;
       search = search || "";
       const offset = page * limit - limit;
       const totalData = await productModel.getCountProduct(search);
