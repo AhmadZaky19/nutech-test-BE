@@ -29,6 +29,20 @@ module.exports = {
         }
       );
     }),
+  getProductByName: (name) =>
+    new Promise((resolve, reject) => {
+      connection.query(
+        "SELECT * FROM product WHERE name = ?",
+        name,
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            reject(new Error(`SQL: ${error.sqlMassage}`));
+          }
+        }
+      );
+    }),
   getCountProduct: (search) =>
     new Promise((resolve, reject) => {
       connection.query(

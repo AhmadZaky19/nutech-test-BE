@@ -74,6 +74,33 @@ module.exports = {
       );
     }
   },
+  getProductByName: async (req, res) => {
+    try {
+      const { name } = req.params;
+      const result = await productModel.getProductByName(name);
+      if (result.length < 1) {
+        return helperWrapper.response(
+          res,
+          404,
+          `Product by name ${name} not found !`,
+          null
+        );
+      }
+      return helperWrapper.response(
+        res,
+        200,
+        "Success get product by name",
+        result
+      );
+    } catch (error) {
+      return helperWrapper.response(
+        res,
+        400,
+        `Bad request (${error.message})`,
+        null
+      );
+    }
+  },
   postProduct: async (req, res) => {
     try {
       const { name, buyPrice, sellPrice, stock } = req.body;
@@ -84,8 +111,19 @@ module.exports = {
         stock,
         image: req.file ? req.file.filename : null,
       };
-      const result = await productModel.postProduct(setData);
-      return helperWrapper.response(res, 200, "Success post product", result);
+      const checkName = await productModel.getProductByName(name);
+      console.log(checkName);
+      if (checkName.length >= 1) {
+        return helperWrapper.response(
+          res,
+          404,
+          `Product by name ${name} already exist !`,
+          null
+        );
+      } else {
+        const result = await productModel.postProduct(setData);
+        return helperWrapper.response(res, 200, "Success post product", result);
+      }
     } catch (error) {
       return helperWrapper.response(
         res,
