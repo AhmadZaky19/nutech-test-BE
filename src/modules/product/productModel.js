@@ -4,7 +4,7 @@ module.exports = {
   getAllProduct: (search, limit, offset) =>
     new Promise((resolve, reject) => {
       connection.query(
-        `SELECT * FROM product WHERE name LIKE ? LIMIT ? OFFSET ?`,
+        `SELECT * FROM product WHERE name LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?`,
         [`%${search}%`, limit, offset],
         (error, result) => {
           if (!error) {
